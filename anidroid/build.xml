@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="anidroid" default="dist" basedir=".">
+
+	<loadproperties srcFile="local.properties" />
+	<property file="ant.properties" />
+	<loadproperties srcFile="project.properties" />
+
+	<fail
+            message="sdk.dir is missing. Make sure to generate local.properties using 'android update project'"
+            unless="sdk.dir"
+    />
+
+	<import file="${sdk.dir}/tools/ant/build.xml" />
+
+	<target name="dist" depends="release">
+		<jar destfile="bin/anidroid.jar" basedir="bin/classes">
+			<include name="com/github/anidroid/**" />
+			<exclude name="**/R*.class"/>
+		</jar>
+	</target>
+
+</project>
