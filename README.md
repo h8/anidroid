@@ -32,10 +32,10 @@ folder which will contain frame images in assets folder
 of your application. Then create animation drawable:
 
     AnimationDrawable a = FrameAnimator
-	.getInstance(getApplicationContext())
-	.create("<your folder in assets>", 100, false);
+	    .getInstance(getApplicationContext())
+	    .create("<your folder in assets>", 100, false);
     ((ImageView) findViewById(R.id.imageView))
-	.setBackgroundDrawable(a);
+	    .setBackgroundDrawable(a);
     a.start();
 
 See anidroid-example project for basic usage.
