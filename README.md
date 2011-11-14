@@ -1,7 +1,7 @@
 AniDroid Library
 ================
 
-AniDroid is a library for Android (tm) which 
+AniDroid is a library for Android&trade; which 
 helps to create frame animations.
 
 About
