@@ -24,18 +24,24 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import android.test.AndroidTestCase;
+import junit.framework.TestCase;
 
-public class FrameUtilTest extends AndroidTestCase {
+public class FrameUtilTest extends TestCase {
+	FrameUtil util;
+
+	@Override
+	protected void setUp() throws Exception {
+		util = new FrameUtil();
+
+		super.setUp();
+	}
+
 	public void testExtractFrames_AllFrames() {
-		final FrameUtil util = new FrameUtil();
-
 		assertEquals(5,
 				util.extractFrames(createFrameList(5)).size());
 	}
 
 	public void testExtractFrames_SkipOne() {
-		final FrameUtil util = new FrameUtil();
 		final List<String> frames = createFrameList(5);
 		frames.add("folder/non-frame.png");
 
@@ -43,7 +49,6 @@ public class FrameUtilTest extends AndroidTestCase {
 	}
 
 	public void testExtractFrames_NoFrames() {
-		final FrameUtil util = new FrameUtil();
 		final List<String> frames =
 				new ArrayList<String>(Arrays.
 						asList(new String[] {"file1", "file2"}));
