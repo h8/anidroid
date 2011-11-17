@@ -20,48 +20,43 @@
 
 package com.github.anidroid;
 
-import android.test.AndroidTestCase;
+import junit.framework.TestCase;
 
-public class FileIndexUtilTest extends AndroidTestCase {
+public class FileIndexUtilTest extends TestCase {
+	FileIndexUtil util;
+
+	@Override
+	protected void setUp() throws Exception {
+		util = new FileIndexUtil();
+
+		super.setUp();
+	}
+
 	public void testExtractFileIndex_RegularFileName1() {
-		final String fname = "frame_8.gif";
-		final FileIndexUtil util = new FileIndexUtil();
-
-		assertEquals(8, (int) util.extractIndex(fname));
+		assertEquals(8, (int) util.extractIndex("frame_8.gif"));
 	}
 
 	public void testExtractFileIndex_RegularFileName2() {
-		final String fname = "frame18.gif";
-		final FileIndexUtil util = new FileIndexUtil();
+		assertEquals(18, (int) util.extractIndex("frame18.gif"));
+	}
 
-		assertEquals(18, (int) util.extractIndex(fname));
+	public void testExtractFileIndex_RegularFileNameWithZero() {
+		assertEquals(8, (int) util.extractIndex("frame_08.gif"));
 	}
 
 	public void testExtractFileIndex_TwoNumbersName() {
-		final String fname = "frame50_107.gif";
-		final FileIndexUtil util = new FileIndexUtil();
-
-		assertEquals(107, (int) util.extractIndex(fname));
+		assertEquals(107, (int) util.extractIndex("frame50_107.gif"));
 	}
 
 	public void testExtractFileIndex_OnlyNumber() {
-		final String fname = "88.gif";
-		final FileIndexUtil util = new FileIndexUtil();
-
-		assertEquals(88, (int) util.extractIndex(fname));
+		assertEquals(88, (int) util.extractIndex("88.gif"));
 	}
 
 	public void testExtractFileIndex_NoIndexNumber() {
-		final String fname = "frame.gif";
-		final FileIndexUtil util = new FileIndexUtil();
-
-		assertNull(util.extractIndex(fname));
+		assertNull(util.extractIndex("frame.gif"));
 	}
 
 	public void testExtractFileIndex_NoExtension() {
-		final String fname = "frame15";
-		final FileIndexUtil util = new FileIndexUtil();
-
-		assertNull(util.extractIndex(fname));
+		assertNull(util.extractIndex("frame15"));
 	}
 }
