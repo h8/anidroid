@@ -22,7 +22,6 @@
 package com.github.anidroid.example;
 
 import android.app.Activity;
-import android.content.Context;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.widget.ImageView;
@@ -30,8 +29,6 @@ import android.widget.ImageView;
 import com.github.anidroid.FrameAnimator;
 
 public class AnidroidExampleActivity extends Activity {
-    ImageView loader;
-	Context context;
 	AnimationDrawable animation;
 
 	@Override
@@ -39,13 +36,12 @@ public class AnidroidExampleActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
-        loader = (ImageView) findViewById(R.id.loader);
-        context = getApplicationContext();
+        final ImageView loader = (ImageView) findViewById(R.id.loader);
 
         /*
          * Create and set animation to the container image view
          * */
-		animation = FrameAnimator.getInstance(context).create("loader", 100, false);
+		animation = FrameAnimator.getInstance(this).create("loader", 100, false);
 		loader.setBackgroundDrawable(animation);
     }
 
@@ -53,6 +49,6 @@ public class AnidroidExampleActivity extends Activity {
 	public void onWindowFocusChanged(final boolean hasFocus) {
 		super.onWindowFocusChanged(hasFocus);
 
-		animation.start();
+		if (hasFocus) animation.start();
 	}
 }
