@@ -27,6 +27,7 @@ import android.test.InstrumentationTestCase;
 public class FrameAnimatorTest extends InstrumentationTestCase {
 	Context context;
 	TestStub stubs;
+	FrameAnimator animator;
 
 	@Override
 	protected void setUp() throws Exception {
@@ -34,49 +35,42 @@ public class FrameAnimatorTest extends InstrumentationTestCase {
 
 		context = getInstrumentation().getContext();
 		stubs = new TestStub();
+
+		animator = FrameAnimator.getInstance(context);
 	}
 
 	public void testGetInstance_ContextInitialized() {
-		final FrameAnimator animator = FrameAnimator.getInstance(context);
-
-		assertEquals(context, animator.context);
+		assertEquals(context,
+				FrameAnimator.getInstance(context).context);
 	}
 
 	public void testGetInstance_FrameUtilInitialized() {
-		final FrameAnimator animator = FrameAnimator.getInstance(context);
-
-		assertNotNull(animator.frameUtil);
+		assertNotNull(FrameAnimator.getInstance(context).frameUtil);
 	}
 
 	public void testGetInstance_AssetUtilInitialized() {
-		final FrameAnimator animator = FrameAnimator.getInstance(context);
-
-		assertNotNull(animator.assetUtil);
+		assertNotNull(FrameAnimator.getInstance(context).assetUtil);
 	}
 
 	public void testCreate_FrameCount() {
-		final FrameAnimator animator = FrameAnimator.getInstance(context);
 		final AnimationDrawable animation = animator.create("ajax-loader", 250, false);
 
 		assertEquals(4, animation.getNumberOfFrames());
 	}
 
 	public void testCreate_Duration() {
-		final FrameAnimator animator = FrameAnimator.getInstance(context);
 		final AnimationDrawable animation = animator.create("ajax-loader", 350, false);
 
 		assertEquals(350, animation.getDuration(0));
 	}
 
 	public void testCreate_OneShot() {
-		final FrameAnimator animator = FrameAnimator.getInstance(context);
 		final AnimationDrawable animation = animator.create("ajax-loader", 150, true);
 
 		assertTrue(animation.isOneShot());
 	}
 
 	public void testCreate_EmptyFileList() {
-		final FrameAnimator animator = FrameAnimator.getInstance(context);
 		animator.assetUtil = stubs.assetUtilWithEmptyFilesList();
 
 		try {
@@ -86,7 +80,6 @@ public class FrameAnimatorTest extends InstrumentationTestCase {
 	}
 
 	public void testCreate_FrameFileOpenFailed() {
-		final FrameAnimator animator = FrameAnimator.getInstance(context);
 		animator.assetUtil = stubs.assetUtilExceptionOnOpen(context.getAssets());
 
 		try {
